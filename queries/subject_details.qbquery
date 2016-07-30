@@ -1,0 +1,54 @@
+﻿create table sql_practice.subject_details
+(
+  subject_name varchar(20) Primary Key,
+  subject_total_marks int,
+  subject_teacher varchar(30) not null
+);
+
+select * from sql_practice.subject_details;
+
+insert into sql_practice.subject_details values("DS",100,"Gauri");
+
+# this row will not be inserted as subject_name is primary key, primary key needs to be unique and not null
+insert into sql_practice.subject_details values("DS",100,"Gauri1");
+# blank is also a valid value so we can have one blank value in a primary key column
+insert into sql_practice.subject_details values("",100,"Gauri1");
+# this row will not be inserted as subject_name is primary key, primary key needs to be unique, we already have one blank value
+insert into sql_practice.subject_details values("",100,"Gauri1");
+# this row will not be inserted as subject_name is primary key, primary key needs to be unique and not null
+insert into sql_practice.subject_details values(null,100,"Gauri1");
+
+insert into sql_practice.subject_details values("OOPS",100,"");
+# this row wil not be inserted as subject_teacher cannot be null
+insert into sql_practice.subject_details values("OOPS",100,null);
+
+select * from sql_practice.sql_practice.subject_details;
+
+delete from sql_practice.subject_details where subject_name="";
+
+select * from sql_practice.subject_details;
+
+# example of an update statement
+update sql_practice.subject_details set subject_teacher="Deepender" where subject_name ="OOPS";
+
+select * from sql_practice.subject_details;
+
+
+insert into sql_practice.subject_details values("CO",100,"Goyal");
+insert into sql_practice.subject_details values("OS",100,"Rawat");
+insert into sql_practice.subject_details values("CBNST",100,"Pandey");
+insert into sql_practice.subject_details values("OSPM",100,"Goyal");
+insert into sql_practice.subject_details values("Data Science",100,"Tiwary");
+
+select * from sql_practice.subject_details;
+
+#total number of rows
+select count(*) from sql_practice.subject_details;
+
+
+# count of subjects taken by each teacher
+select subject_teacher,count(*) as "count_of_subjects" from sql_practice.subject_details group by subject_teacher;
+
+# get teacher teaching more than one subject
+select subject_teacher,count(*) as "count_of_subjects" from sql_practice.subject_details group by subject_teacher
+having count_of_subjects>1;

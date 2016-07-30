@@ -1,0 +1,98 @@
+﻿create schema sql_practice;
+
+create table sql_practice.student
+(
+  student_id varchar(10),
+  student_name varchar(30),
+  subject_name varchar(20),
+  subject_marks int,
+  marks_data date
+);
+
+insert into sql_practice.student values("1","Aparajita","DS",90,"2016-06-13");
+insert into sql_practice.student values("1","Aparajita","OOPS",85,"2016-06-13");
+insert into sql_practice.student values("1","Aparajita","CO",80,"2016-06-13");
+insert into sql_practice.student values("1","Aparajita","OS",91,"2016-06-13");
+insert into sql_practice.student values("1","Aparajita","CBNST",65,"2016-06-13");
+insert into sql_practice.student values("1","Aparajita","OSPM",98,"2016-06-13");
+insert into sql_practice.student values("2","Rashmi","DS",91,"2016-06-13");
+insert into sql_practice.student values("2","Rashmi","OOPS",92,"2016-06-13");
+insert into sql_practice.student values("2","Rashmi","CO",90,"2016-06-13");
+insert into sql_practice.student values("2","Rashmi","OS",93,"2016-06-13");
+insert into sql_practice.student values("2","Rashmi","CBNST",85,"2016-06-13");
+insert into sql_practice.student values("2","Rashmi","OSPM",62,"2016-06-13");
+insert into sql_practice.student values("3","Shubham","DS",85,"2016-06-13");
+insert into sql_practice.student values("3","Shubham","OOPS",86,"2016-06-13");
+insert into sql_practice.student values("3","Shubham","CO",80,"2016-06-13");
+insert into sql_practice.student values("3","Shubham","OS",84,"2016-06-13");
+insert into sql_practice.student values("3","Shubham","CBNST",72,"2016-06-13");
+insert into sql_practice.student values("3","Shubham","OSPM",86,"2016-06-13");
+insert into sql_practice.student values("4","Vivek","DS",89,"2016-06-13");
+insert into sql_practice.student values("4","Vivek","OOPS",88,"2016-06-13");
+insert into sql_practice.student values("4","Vivek","CO",83,"2016-06-13");
+insert into sql_practice.student values("4","Vivek","OS",88,"2016-06-13");
+insert into sql_practice.student values("4","Vivek","CBNST",82,"2016-06-13");
+insert into sql_practice.student values("4","Vivek","OSPM",83,"2016-06-13");
+insert into sql_practice.student values("5","Anshul","DS",74,"2016-06-13");
+insert into sql_practice.student values("5","Anshul","OOPS",76,"2016-06-13");
+insert into sql_practice.student values("5","Anshul","CO",68,"2016-06-13");
+insert into sql_practice.student values("5","Anshul","OS",55,"2016-06-13");
+insert into sql_practice.student values("5","Anshul","CBNST",89,"2016-06-13");
+insert into sql_practice.student values("5","Anshul","OSPM",81,"2016-06-13");
+insert into sql_practice.student values("6","Rahul","DS",86,"2016-06-13");
+insert into sql_practice.student values("6","Rahul","OOPS",75,"2016-06-13");
+insert into sql_practice.student values("6","Rahul","CO",84,"2016-06-13");
+insert into sql_practice.student values("6","Rahul","OS",83,"2016-06-13");
+insert into sql_practice.student values("6","Rahul","CBNST",65,"2016-06-13");
+insert into sql_practice.student values("6","Rahul","OSPM",45,"2016-06-13");
+insert into sql_practice.student values("7","Pankaj","DS",87,"2016-06-13");
+insert into sql_practice.student values("7","Pankaj","OOPS",84,"2016-06-13");
+insert into sql_practice.student values("7","Pankaj","CO",88,"2016-06-13");
+insert into sql_practice.student values("7","Pankaj","OS",87,"2016-06-13");
+insert into sql_practice.student values("7","Pankaj","CBNST",85,"2016-06-13");
+insert into sql_practice.student values("7","Pankaj","OSPM",81,"2016-06-13");
+insert into sql_practice.student values("8","Sumit","DS",81,"2016-06-13");
+insert into sql_practice.student values("8","Sumit","OOPS",86,"2016-06-13");
+insert into sql_practice.student values("8","Sumit","CO",84,"2016-06-13");
+insert into sql_practice.student values("8","Sumit","OS",84,"2016-06-13");
+insert into sql_practice.student values("8","Sumit","CBNST",83,"2016-06-13");
+insert into sql_practice.student values("8","Sumit","OSPM",86,"2016-06-13");
+
+delete from sql_practice.student;
+
+
+select * from sql_practice.student;
+
+# where condition with or condition, select rpws with student_id either as 1 or 2
+select * from sql_practice.student where student_id='1' or student_id='2';
+
+# where condition with and condition, select rpws with student_id  as 1 and subject as DS
+select * from sql_practice.student where student_id='1' and subject_name='DS';
+
+# get sum,max,min marks for all students
+select sum(subject_marks),max(subject_marks),min(subject_marks) from sql_practice.student;
+
+# get sum,max,min marks for one student
+select sum(subject_marks),max(subject_marks),min(subject_marks) from sql_practice.student where student_id=1;
+
+# get sum,max,min marks for every student
+select student_name,sum(subject_marks),max(subject_marks),min(subject_marks) from sql_practice.student group by student_name;
+
+
+# get sum,max,min marks for every student order by total marks
+select student_name,sum(subject_marks) as "total_marks",max(subject_marks),min(subject_marks)
+from sql_practice.student group by student_name order by total_marks desc;
+
+# get student who topped individual subject, example of sub query
+select student_name,subject_name,subject_marks from sql_practice.student where (subject_name,subject_marks) in
+(
+select subject_name,max(subject_marks) from sql_practice.student group by subject_name
+);
+
+# get sum,max,min marks for every student order by total marks who have scored atleast 500 marks
+select student_name,sum(subject_marks) as "total_marks",max(subject_marks),min(subject_marks)
+from sql_practice.student group by student_name having total_marks > 500 order by total_marks desc;
+
+
+# get all unique values
+select distinct subject_name from sql_practice.student;

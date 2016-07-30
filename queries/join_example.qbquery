@@ -1,0 +1,14 @@
+﻿# example of joins
+
+# find students for one teacher
+select student.student_name,subject_details.subject_teacher from sql_practice.student inner join sql_practice.subject_details
+on student.subject_name = subject_details.subject_name where subject_details.subject_teacher="Gauri";
+
+# another version
+select a.student_name,b.subject_teacher from sql_practice.student a inner join sql_practice.subject_details b
+on a.subject_name = b.subject_name where b.subject_teacher="Gauri";
+
+# count of student for each teacher
+select b.subject_teacher,count(a.student_name) as "count_of_students" from sql_practice.student a
+inner join sql_practice.subject_details b
+on a.subject_name = b.subject_name group by b.subject_teacher;
